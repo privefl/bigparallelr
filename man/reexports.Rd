@@ -6,6 +6,8 @@
 \alias{makeCluster}
 \alias{stopCluster}
 \alias{registerDoParallel}
+\alias{lock}
+\alias{unlock}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -14,6 +16,8 @@ below to see their documentation.
 
 \describe{
   \item{doParallel}{\code{\link[doParallel]{registerDoParallel}}}
+
+  \item{flock}{\code{\link[flock]{lock}}, \code{\link[flock]{unlock}}}
 
   \item{parallel}{\code{\link[parallel]{makeCluster}}, \code{\link[parallel]{stopCluster}}}
 }}

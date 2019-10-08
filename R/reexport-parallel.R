@@ -15,3 +15,13 @@ parallel::stopCluster
 doParallel::registerDoParallel
 
 ################################################################################
+
+#' @importFrom flock lock
+#' @export
+flock::lock
+
+#' @importFrom flock unlock
+#' @export
+flock::unlock
+
+################################################################################

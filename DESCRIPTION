@@ -1,0 +1,14 @@
+Package: bigparallelr
+Title: Parallel Tools
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Florian",
+           family = "Privé",
+           role = c("aut", "cre"),
+           email = "florian.prive.21@gmail.com")
+Description: Utility functions for easy parallelism in R.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.1.0

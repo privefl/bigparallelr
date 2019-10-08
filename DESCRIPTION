@@ -14,4 +14,7 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.0
 Imports: 
     doParallel,
-    flock
+    flock,
+    RhpcBLASctl
+Depends: 
+    foreach

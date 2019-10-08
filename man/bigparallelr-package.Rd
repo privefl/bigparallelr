@@ -4,12 +4,12 @@
 \name{bigparallelr-package}
 \alias{bigparallelr}
 \alias{bigparallelr-package}
-\title{bigparallelr: What the Package Does (One Line, Title Case)}
+\title{bigparallelr: Parallel Tools}
 \description{
-What the package does (one paragraph).
+Utility functions for easy parallelism in R.
 }
 \author{
-\strong{Maintainer}: First Last \email{first.last@example.com}
+\strong{Maintainer}: Florian Privé \email{florian.prive.21@gmail.com}
 
 }
 \keyword{internal}

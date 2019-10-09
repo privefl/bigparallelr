@@ -31,3 +31,39 @@ split_len <- function(total_len, block_len,
 }
 
 ################################################################################
+
+#' Sequence generation
+#'
+#' - `rows_along(x)`: `seq_len(nrow(x))`
+#' - `cols_along(x)`: `seq_len(ncol(x))`
+#' - `seq_range(lims)`: `seq(lims[1], lims[2])`
+#'
+#' @param x Any object on which you can call `nrow()` and `ncol()`.
+#' @param lims Vector of size 2 (or more, but only first 2 values will be used).
+#'
+#' @examples
+#' X <- matrix(1:6, 2, 3)
+#' dim(X)
+#' rows_along(X)
+#' cols_along(X)
+#'
+#' seq_range(c(3, 10))
+#'
+#' @rdname seq-dim
+#' @keywords internal
+#' @export
+rows_along <- function(x) seq_len(nrow(x))
+
+#' @rdname seq-dim
+#' @export
+cols_along <- function(x) seq_len(ncol(x))
+
+################################################################################
+
+#' @rdname seq-dim
+#' @export
+seq_range <- function(lims) {
+  seq(lims[1], lims[2])
+}
+
+################################################################################

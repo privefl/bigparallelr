@@ -4,10 +4,7 @@ context("test-register-parallel")
 
 ################################################################################
 
-test_that("multiplication works", {
-
-  expect_error(register_parallel(1),
-               "This function must be used inside another function.")
+test_that("register_parallel() works", {
 
   test <- function(ncores, ...) {
     register_parallel(ncores, ...)

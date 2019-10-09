@@ -10,10 +10,7 @@ register_parallel(ncores, ...)
 \item{ncores}{Number of cores to use. If using only one, then this function
 uses \code{\link[foreach:registerDoSEQ]{foreach::registerDoSEQ()}}.}
 
-\item{...}{Arguments passed on to \code{makeCluster}
-\describe{
-  \item{}{}
-}}
+\item{...}{Arguments passed on to \code{\link[=makeCluster]{makeCluster()}}.}
 }
 \description{
 Register parallel in functions. Do \code{\link[=makeCluster]{makeCluster()}}, \code{\link[=registerDoParallel]{registerDoParallel()}}

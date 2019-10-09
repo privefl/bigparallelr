@@ -7,7 +7,7 @@
 #'
 #' @param ncores Number of cores to use. If using only one, then this function
 #'   uses [foreach::registerDoSEQ()].
-#' @inheritDotParams makeCluster -spec
+#' @param ... Arguments passed on to [makeCluster()].
 #'
 #' @export
 #'

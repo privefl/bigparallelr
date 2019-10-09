@@ -22,4 +22,5 @@ Imports:
 Depends: 
     foreach
 Suggests: 
-    testthat
+    testthat,
+    covr

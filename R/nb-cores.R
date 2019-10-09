@@ -1,5 +1,28 @@
 ################################################################################
 
+#' Check number of cores
+#'
+#' @param ncores Number of cores to check. Make sure is not larger than
+#'   `getOption("bigstatsr.ncores.max")` (number of logical cores by default).
+#'
+#' @export
+#'
+#' @examples
+#' assert_cores(2)
+#'
+assert_cores <- function(ncores) {
+  if (ncores > getOption("bigstatsr.ncores.max")) {
+    stop2(paste0(
+      "You are trying to use more cores than allowed.",
+      " We advise you to use `nb_cores()`.\n",
+      "If you really know what you are doing, you can change this default value",
+      " with `options(bigstatsr.ncores.max = Inf)`."
+    ))
+  }
+}
+
+################################################################################
+
 #' Recommended number of cores to use
 #'
 #' This is base on the following rule: use only physical cores and if you have

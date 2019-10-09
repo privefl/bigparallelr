@@ -13,8 +13,12 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.0
 Imports: 
+    bigassertr,
     doParallel,
     flock,
+    parallel,
     RhpcBLASctl
 Depends: 
     foreach
+Suggests: 
+    testthat

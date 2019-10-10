@@ -19,6 +19,19 @@ test_that("split_len() works", {
                cbind(lower = 1, upper = 10, size = 10))
   expect_equal(split_len(10, nb_split = 11), split_len(10, block_len = 1))
   expect_equal(split_len(10, nb_split = 1), split_len(10, block_len = 10))
+  expect_equal(split_len(10, nb_split = 0), split_len(10, block_len = 10))
+})
+
+################################################################################
+
+test_that("Sequence generation works", {
+
+  mat <- matrix(1:18, 3, 6)
+
+  expect_identical(rows_along(mat), 1:3)
+  expect_identical(cols_along(mat), 1:6)
+
+  expect_identical(seq_range(c(3, 10)), 3:10)
 })
 
 ################################################################################

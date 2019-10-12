@@ -5,6 +5,8 @@ context("test-split")
 ################################################################################
 
 test_that("split_len() works", {
+  expect_error(split_len(0, nb_split = 2),
+               "'total_len' should have only positive values.")
   expect_equal(split_len(10, block_len = 3),
                cbind(lower = c(1, 3, 6, 9),
                      upper = c(2, 5, 8, 10),

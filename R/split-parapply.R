@@ -31,7 +31,7 @@ globalVariables("ic")
 #'   combined with `do.call(.combine, .)` if `.combined` is not `NULL`.
 #' @export
 #'
-#' @importFrom bigassertr assert_args assert_int assert_pos
+#' @importFrom bigassertr assert_args
 #'
 #' @examples
 #' str(
@@ -47,7 +47,6 @@ split_parapply <- function(FUN, ind, ...,
                            opts_cluster = list()) {
 
   assert_args(FUN, "ind")
-  assert_int(ind); assert_pos(ind)
   assert_cores(ncores)
 
   do.call(register_parallel, args = c(list(ncores = ncores), opts_cluster))

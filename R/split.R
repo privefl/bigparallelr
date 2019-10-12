@@ -15,14 +15,16 @@
 split_len <- function(total_len, block_len,
                       nb_split = ceiling(total_len / block_len)) {
 
+  assert_one_int(total_len); assert_pos(total_len)
+
   if (nb_split > total_len) {
     nb_split <- total_len
   } else if (nb_split == 0) {  ## block_len = Inf
     nb_split <- 1
   }
-  assert_pos(nb_split); assert_int(nb_split)
-  int <- total_len / nb_split
+  assert_one_int(nb_split); assert_pos(nb_split)
 
+  int <- total_len / nb_split
   upper <- round(1:nb_split * int)
   lower <- c(1, upper[-nb_split] + 1)
   size <- c(upper[1], diff(upper))

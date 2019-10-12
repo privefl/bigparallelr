@@ -16,12 +16,12 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
+  \item{RhpcBLASctl}{\code{\link[RhpcBLASctl]{blas_set_num_threads}}}
+
   \item{doParallel}{\code{\link[doParallel]{registerDoParallel}}}
 
   \item{flock}{\code{\link[flock]{lock}}, \code{\link[flock]{unlock}}}
 
   \item{parallel}{\code{\link[parallel]{makeCluster}}, \code{\link[parallel]{stopCluster}}}
-
-  \item{RhpcBLASctl}{\code{\link[RhpcBLASctl]{blas_set_num_threads}}}
 }}
 

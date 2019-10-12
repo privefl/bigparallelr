@@ -1,6 +1,6 @@
 Package: bigparallelr
 Title: Parallel Tools
-Version: 0.1.0
+Version: 0.1.1
 Date: 2019-10-09
 Authors@R: 
     person(given = "Florian",
@@ -15,7 +15,7 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.0
 Remotes: privefl/bigassertr
 Imports: 
-    bigassertr,
+    bigassertr (>= 0.1.1),
     doParallel,
     flock,
     parallel,

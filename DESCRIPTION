@@ -26,3 +26,5 @@ Depends:
 Suggests: 
     testthat,
     covr
+URL: https://github.com/privefl/bigparallelr
+BugReports: https://github.com/privefl/bigparallelr/issues

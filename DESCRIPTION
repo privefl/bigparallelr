@@ -1,19 +1,20 @@
 Package: bigparallelr
-Title: Parallel Tools
-Version: 0.1.1
-Date: 2019-10-09
+Title: Easy Parallel Tools
+Version: 0.1.2
+Date: 2019-10-21
 Authors@R: 
     person(given = "Florian",
            family = "Privé",
            role = c("aut", "cre"),
            email = "florian.prive.21@gmail.com")
-Description: Utility functions for easy parallelism in R.
+Description: Utility functions for easy parallelism in R. Include some reexports
+    from other packages, utility functions for splitting and parallelizing over
+    blocks, and choosing and setting the number of cores used.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.1.0
-Remotes: privefl/bigassertr
+RoxygenNote: 6.1.1
 Imports: 
     bigassertr (>= 0.1.1),
     doParallel,

@@ -28,9 +28,9 @@ register_parallel <- function(ncores, ...) {
   if (ncores == 1) {
     foreach::registerDoSEQ()
   } else {
-    registerDoParallel(cl <- makeCluster(ncores, ...))
+    doParallel::registerDoParallel(cl <- parallel::makeCluster(ncores, ...))
     # https://stackoverflow.com/a/20998531/6103040
-    do.call("on.exit", list(substitute(stopCluster(cl)), add = TRUE),
+    do.call("on.exit", list(substitute(parallel::stopCluster(cl)), add = TRUE),
             envir = parent.frame())
   }
 

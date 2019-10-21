@@ -4,9 +4,11 @@
 \name{bigparallelr-package}
 \alias{bigparallelr}
 \alias{bigparallelr-package}
-\title{bigparallelr: Parallel Tools}
+\title{bigparallelr: Easy Parallel Tools}
 \description{
-Utility functions for easy parallelism in R.
+Utility functions for easy parallelism in R. Include some reexports
+    from other packages, utility functions for splitting and parallelizing over
+    blocks, and choosing and setting the number of cores used.
 }
 \author{
 \strong{Maintainer}: Florian Privé \email{florian.prive.21@gmail.com}

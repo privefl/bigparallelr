@@ -4,8 +4,15 @@
 \alias{split_parapply}
 \title{Split-parApply-Combine}
 \usage{
-split_parapply(FUN, ind, ..., .combine = NULL, ncores = nb_cores(),
-  nb_split = ncores, opts_cluster = list())
+split_parapply(
+  FUN,
+  ind,
+  ...,
+  .combine = NULL,
+  ncores = nb_cores(),
+  nb_split = ncores,
+  opts_cluster = list()
+)
 }
 \arguments{
 \item{FUN}{The function to be applied to each subset matrix.}

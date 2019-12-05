@@ -8,10 +8,24 @@ assert_cores(ncores)
 }
 \arguments{
 \item{ncores}{Number of cores to check. Make sure is not larger than
-\code{getOption("bigstatsr.ncores.max")} (number of logical cores by default).}
+\code{getOption("bigstatsr.ncores.max")} (number of logical cores by default).
+We advise you to use \code{nb_cores()}. If you really know what you are doing,
+you can change this default value with \code{options(bigstatsr.ncores.max = Inf)}.}
 }
 \description{
-Check number of cores
+Check that you are not trying to use too many cores.
+}
+\details{
+It also check if two levels of parallelism are used, i.e. having \code{ncores}
+larger than 1, and having a parallel BLAS enabled by default.
+You could remove this check by setting
+\code{options(bigstatsr.check.parallel.blas = FALSE)}.
+We instead recommend that you disable parallel BLAS by default by adding
+\code{invisible(utils::capture.output(RhpcBLASctl::blas_set_num_threads(1)))}
+in your .Rprofile (\code{usethis::edit_r_profile()}) so that this is set whenever
+you open a new R session. In a specific session, you can set a different
+number of cores to use for matrix computations, if you know that there is no
+other level of parallelism involved in your code.
 }
 \examples{
 assert_cores(2)

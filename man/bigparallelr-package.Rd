@@ -10,6 +10,14 @@ Utility functions for easy parallelism in R. Include some reexports
     from other packages, utility functions for splitting and parallelizing over
     blocks, and choosing and setting the number of cores used.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/privefl/bigparallelr}
+  \item Report bugs at \url{https://github.com/privefl/bigparallelr/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Florian Privé \email{florian.prive.21@gmail.com}
 

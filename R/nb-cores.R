@@ -1,9 +1,34 @@
 ################################################################################
 
+default_nproc_blas <- function() {
+
+  cl <- parallel::makePSOCKcluster(1)
+  on.exit(parallel::stopCluster(cl), add = TRUE)
+
+  parallel::clusterEvalQ(cl, RhpcBLASctl::blas_get_num_procs())[[1]]
+}
+
+################################################################################
+
 #' Check number of cores
+#'
+#' Check that you are not trying to use too many cores.
+#'
+#' It also check if two levels of parallelism are used, i.e. having `ncores`
+#' larger than 1, and having a parallel BLAS enabled by default.
+#' You could remove this check by setting
+#' `options(bigstatsr.check.parallel.blas = FALSE)`.
+#' We instead recommend that you disable parallel BLAS by default by adding
+#' `invisible(utils::capture.output(RhpcBLASctl::blas_set_num_threads(1)))`
+#' in your .Rprofile (`usethis::edit_r_profile()`) so that this is set whenever
+#' you open a new R session. In a specific session, you can set a different
+#' number of cores to use for matrix computations, if you know that there is no
+#' other level of parallelism involved in your code.
 #'
 #' @param ncores Number of cores to check. Make sure is not larger than
 #'   `getOption("bigstatsr.ncores.max")` (number of logical cores by default).
+#'   We advise you to use `nb_cores()`. If you really know what you are doing,
+#'   you can change this default value with `options(bigstatsr.ncores.max = Inf)`.
 #'
 #' @export
 #'
@@ -11,13 +36,13 @@
 #' assert_cores(2)
 #'
 assert_cores <- function(ncores) {
-  if (ncores > getOption("bigstatsr.ncores.max")) {
-    stop2(paste0(
-      "You are trying to use more cores than allowed.",
-      " We advise you to use `nb_cores()`.\n",
-      "If you really know what you are doing, you can change this default value",
-      " with `options(bigstatsr.ncores.max = Inf)`."
-    ))
+
+  if (ncores > getOption("bigstatsr.ncores.max"))
+    stop2("You are trying to use more cores than allowed. See `?assert_cores`.")
+
+  if (ncores > 1 && getOption("bigstatsr.check.parallel.blas")) {
+    if (getOption("default.nproc.blas") > 1)
+      stop2("Two levels of parallelism are used. See `?assert_cores`.")
   }
 }
 

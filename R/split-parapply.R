@@ -57,7 +57,8 @@ split_parapply <- function(FUN, ind, ...,
   intervals <- split_len(length(ind), nb_split = nb_split)
 
   res <- foreach(ic = rows_along(intervals)) %dopar% {
-    FUN(ind = ind[seq_range(intervals[ic, ])], ...)
+    ind.part <- ind[seq(intervals[ic, "lower"], intervals[ic, "upper"])]
+    FUN(ind = ind.part, ...)
   }
 
   `if`(is.null(.combine), res, do.call(.combine, res))

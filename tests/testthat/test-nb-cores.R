@@ -14,9 +14,11 @@ test_that("assert_cores() works", {
   expect_null(assert_cores(1))
   expect_error(assert_cores(2), "You are trying to use more cores than allowed.")
 
-  options(bigstatsr.ncores.max = Inf)
+  options(bigstatsr.ncores.max = Inf, bigstatsr.check.parallel.blas = TRUE)
   expect_null(assert_cores(1))
-  if (NCORES_BLAS > 1) {
+
+  set_blas_ncores(bigparallelr:::default_nproc_blas())
+  if (get_blas_ncores() > 1) {
     if (nb_cores() > 1) {
       expect_error(assert_cores(nb_cores()),
                    "Two levels of parallelism are used.")

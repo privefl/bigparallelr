@@ -13,7 +13,7 @@ x <- matrix(rnorm(N * M, mean = 100, sd = 5), N)
 
 test_that("equality with other functions", {
 
-  skip_if(NCORES_BLAS > 1)
+  options(bigstatsr.check.parallel.blas = FALSE)
 
   # get the means of each column (not combined)
   colmeans_split <- split_parapply(

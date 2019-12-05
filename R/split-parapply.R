@@ -34,11 +34,14 @@ globalVariables("ic")
 #' @importFrom bigassertr assert_args
 #'
 #' @examples
+#' \dontrun{
+#'
 #' str(
 #'   split_parapply(function(ind) {
 #'     sqrt(ind)
 #'   }, ind = 1:10000, ncores = 2)
 #' )
+#' }
 #'
 split_parapply <- function(FUN, ind, ...,
                            .combine = NULL,

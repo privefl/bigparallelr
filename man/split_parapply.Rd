@@ -49,10 +49,13 @@ This function splits indices in parts, then apply a given function to each
 part and finally combine the results.
 }
 \examples{
+\dontrun{
+
 str(
   split_parapply(function(ind) {
     sqrt(ind)
   }, ind = 1:10000, ncores = 2)
 )
+}
 
 }

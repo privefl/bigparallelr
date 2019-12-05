@@ -17,12 +17,15 @@ Register parallel in functions. Do \code{\link[=makeCluster]{makeCluster()}}, \c
 and \code{\link[=stopCluster]{stopCluster()}} when the function returns.
 }
 \examples{
+\dontrun{
+
 test <- function(ncores) {
   register_parallel(ncores)
   foreach(i = 1:2) \%dopar\% i
 }
 
 test(2)  # only inside the function
-tryCatch(foreach(i = 1:2) \%dopar\% i, error = function(e) print(e))
+foreach(i = 1:2) \%dopar\% i
+}
 
 }

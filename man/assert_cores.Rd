@@ -21,13 +21,16 @@ larger than 1, and having a parallel BLAS enabled by default.
 You could remove this check by setting
 \code{options(bigstatsr.check.parallel.blas = FALSE)}.
 We instead recommend that you disable parallel BLAS by default by adding
-\code{invisible(utils::capture.output(RhpcBLASctl::blas_set_num_threads(1)))}
-in your .Rprofile (\code{usethis::edit_r_profile()}) so that this is set whenever
+\code{bigparallelr::set_blas_ncores(1)} in your .Rprofile
+(\code{usethis::edit_r_profile()}) so that this is set whenever
 you open a new R session. In a specific session, you can set a different
 number of cores to use for matrix computations, if you know that there is no
 other level of parallelism involved in your code.
 }
 \examples{
+\dontrun{
+
 assert_cores(2)
+}
 
 }

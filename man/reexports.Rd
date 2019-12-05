@@ -8,7 +8,6 @@
 \alias{registerDoParallel}
 \alias{lock}
 \alias{unlock}
-\alias{blas_set_num_threads}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -16,8 +15,6 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{RhpcBLASctl}{\code{\link[RhpcBLASctl]{blas_set_num_threads}}}
-
   \item{doParallel}{\code{\link[doParallel]{registerDoParallel}}}
 
   \item{flock}{\code{\link[flock]{lock}}, \code{\link[flock]{unlock}}}

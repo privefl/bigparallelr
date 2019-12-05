@@ -25,9 +25,3 @@ flock::lock
 flock::unlock
 
 ################################################################################
-
-#' @importFrom RhpcBLASctl blas_set_num_threads
-#' @export
-RhpcBLASctl::blas_set_num_threads
-
-################################################################################

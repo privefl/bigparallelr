@@ -3,8 +3,7 @@
 .onLoad <- function(libname, pkgname) {
   options(
     bigstatsr.ncores.max          = parallel::detectCores(),
-    bigstatsr.check.parallel.blas = TRUE,
-    default.nproc.blas            = default_nproc_blas()
+    bigstatsr.check.parallel.blas = TRUE
   )
 }
 

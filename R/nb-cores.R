@@ -10,6 +10,40 @@ default_nproc_blas <- function() {
 
 ################################################################################
 
+#' Number of cores used by BLAS (matrix computations)
+#'
+#' @export
+#'
+#' @examples
+#' get_blas_ncores()
+get_blas_ncores <- function() {
+
+  utils::capture.output({
+    ncores <- RhpcBLASctl::blas_get_num_procs()
+  })
+
+  ncores
+}
+
+#' @rdname get_blas_ncores
+#'
+#' @param ncores Number of cores to set for BLAS.
+#'
+#' @export
+#'
+set_blas_ncores <- function(ncores) {
+
+  save <- get_blas_ncores()
+
+  utils::capture.output({
+    RhpcBLASctl::blas_set_num_threads(ncores)
+  })
+
+  invisible(save)
+}
+
+################################################################################
+
 #' Check number of cores
 #'
 #' Check that you are not trying to use too many cores.
@@ -19,8 +53,8 @@ default_nproc_blas <- function() {
 #' You could remove this check by setting
 #' `options(bigstatsr.check.parallel.blas = FALSE)`.
 #' We instead recommend that you disable parallel BLAS by default by adding
-#' `invisible(utils::capture.output(RhpcBLASctl::blas_set_num_threads(1)))`
-#' in your .Rprofile (`usethis::edit_r_profile()`) so that this is set whenever
+#' `bigparallelr::set_blas_ncores(1)` in your .Rprofile
+#' (`usethis::edit_r_profile()`) so that this is set whenever
 #' you open a new R session. In a specific session, you can set a different
 #' number of cores to use for matrix computations, if you know that there is no
 #' other level of parallelism involved in your code.
@@ -33,7 +67,10 @@ default_nproc_blas <- function() {
 #' @export
 #'
 #' @examples
+#' \dontrun{
+#'
 #' assert_cores(2)
+#' }
 #'
 assert_cores <- function(ncores) {
 
@@ -41,6 +78,8 @@ assert_cores <- function(ncores) {
     stop2("You are trying to use more cores than allowed. See `?assert_cores`.")
 
   if (ncores > 1 && getOption("bigstatsr.check.parallel.blas")) {
+    if (is.null(getOption("default.nproc.blas")))
+      options(default.nproc.blas = default_nproc_blas())
     if (getOption("default.nproc.blas") > 1)
       stop2("Two levels of parallelism are used. See `?assert_cores`.")
   }

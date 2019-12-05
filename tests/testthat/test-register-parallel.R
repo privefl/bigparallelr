@@ -16,8 +16,8 @@ test_that("register_parallel() works", {
     expect_error(test(2), "Two levels of parallelism are used.")
   } else {
     expect_identical(test(2), as.list(1:2))
+    expect_error({ foreach(i = 1:2) %dopar% i }, "con")
   }
-  expect_error({ foreach(i = 1:2) %dopar% i }, "con")
 })
 
 ################################################################################

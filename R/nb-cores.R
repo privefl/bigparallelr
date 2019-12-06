@@ -48,14 +48,19 @@ set_blas_ncores <- function(ncores) {
 #'
 #' Check that you are not trying to use too many cores.
 #'
-#' It also check if two levels of parallelism are used, i.e. having `ncores`
+#' It also checks if two levels of parallelism are used, i.e. having `ncores`
 #' larger than 1, and having a parallel BLAS enabled by default.
 #' You could remove this check by setting
 #' `options(bigstatsr.check.parallel.blas = FALSE)`.
+#'
 #' We instead recommend that you disable parallel BLAS by default by adding
-#' `try(bigparallelr::set_blas_ncores(1), silent = TRUE)` in your .Rprofile
-#' (`usethis::edit_r_profile()`) so that this is set whenever
-#' you open a new R session. In a specific session, you can set a different
+#' `try(bigparallelr::set_blas_ncores(1), silent = TRUE)` to your .Rprofile
+#' so that this is set whenever you open a new R session
+#' (you can open this file using `usethis::edit_r_profile()`).
+#' For the current running session, you should restart it or use
+#' `options(default.nproc.blas = NULL)`.
+#'
+#' Then, in a specific R session, you can set a different
 #' number of cores to use for matrix computations, if you know that there is no
 #' other level of parallelism involved in your code.
 #'

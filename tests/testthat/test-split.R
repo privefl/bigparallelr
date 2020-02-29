@@ -4,6 +4,18 @@ context("test-split")
 
 ################################################################################
 
+test_that("Sequence generation works", {
+
+  mat <- matrix(1:18, 3, 6)
+
+  expect_identical(rows_along(mat), 1:3)
+  expect_identical(cols_along(mat), 1:6)
+
+  expect_identical(seq_range(c(3, 10)), 3:10)
+})
+
+################################################################################
+
 test_that("split_len() works", {
   expect_error(split_len(0, nb_split = 2),
                "'total_len' should have only positive values.")
@@ -26,14 +38,25 @@ test_that("split_len() works", {
 
 ################################################################################
 
-test_that("Sequence generation works", {
+test_that("split_costs() works", {
 
-  mat <- matrix(1:18, 3, 6)
+  replicate(200, {
 
-  expect_identical(rows_along(mat), 1:3)
-  expect_identical(cols_along(mat), 1:6)
+    N <- sample(10^(2:4), 1)
+    lambda <- sample(30, 1)
+    costs <- rpois(N, lambda)
+    nb <- sample(c(1, 2, 5, 10, 100, 1000), 1)
 
-  expect_identical(seq_range(c(3, 10)), 3:10)
+    res <- split_costs(costs, nb)
+
+    res.costs <- res[, "cost"]
+    expect_equal(sum(res.costs), sum(costs))
+    if (N > 100 && nb == 10)
+      expect_lt(sd(res.costs) / mean(res.costs), 0.1)
+
+    intervals_seq <- lapply(rows_along(res), function(i) seq_range(res[i, ]))
+    expect_equal(unlist(intervals_seq), 1:N)
+  })
 })
 
 ################################################################################

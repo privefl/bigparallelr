@@ -2,7 +2,7 @@
 % Please edit documentation in R/split.R
 \name{split_len}
 \alias{split_len}
-\title{Split in blocks}
+\title{Split length in blocks}
 \usage{
 split_len(total_len, block_len, nb_split = ceiling(total_len/block_len))
 }
@@ -17,9 +17,10 @@ split_len(total_len, block_len, nb_split = ceiling(total_len/block_len))
 A matrix with 3 columns \code{lower}, \code{upper} and \code{size}.
 }
 \description{
-Split in blocks
+Split length in blocks
 }
 \examples{
 split_len(10, block_len = 3)
 split_len(10, nb_split = 3)
+
 }

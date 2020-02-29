@@ -76,10 +76,10 @@ get_one_block <- function(costs, nb_split) {
   n <- length(costs)
 
   if (nb_split == 1)
-    return(list(block = cbind(1, n, sum(costs)), costs = NULL))
+    return(list(block = cbind(1, n, n, sum(costs)), costs = NULL))
 
   if (nb_split >= n)
-    return(list(block = cbind(seq_len(n), seq_len(n), costs), costs = NULL))
+    return(list(block = cbind(seq_len(n), seq_len(n), 1, costs), costs = NULL))
 
   mean_cost_grp <- sum(costs) / nb_split
   cur_cost <- 0
@@ -89,13 +89,16 @@ get_one_block <- function(costs, nb_split) {
     if (new_cost > mean_cost_grp) {
       if (i == n) {
         # Already pass mean_cost_grp with only one
-        return(list(block = cbind(n, n, new_cost), costs = head(costs, i - 1L)))
+        return(list(block = cbind(n, n, 1, new_cost),
+                    costs = head(costs, i - 1L)))
       } else if ((mean_cost_grp - cur_cost) > (new_cost - mean_cost_grp)) {
         # Better to add this one
-        return(list(block = cbind(i, n, new_cost), costs = head(costs, i - 1L)))
+        return(list(block = cbind(i, n, n - i + 1, new_cost),
+                    costs = head(costs, i - 1L)))
       } else {
         # Not better to add this one
-        return(list(block = cbind(i + 1L, n, cur_cost), costs = head(costs, i)))
+        return(list(block = cbind(i + 1L, n, n - i, cur_cost),
+                    costs = head(costs, i)))
       }
     } else {
       # Continue
@@ -112,7 +115,7 @@ get_one_block <- function(costs, nb_split) {
 #' @param costs Vector of costs (e.g. proportional to computation time).
 #' @param nb_split Number of blocks.
 #'
-#' @return A matrix with 3 columns `lower`, `upper` and `cost`.
+#' @return A matrix with 4 columns `lower`, `upper`, `size` and `cost`.
 #' @export
 #'
 #' @importFrom utils head
@@ -137,7 +140,7 @@ split_costs <- function(costs, nb_split) {
   }
 
   res <- do.call("rbind", rev(all_blocks))
-  colnames(res) <- c("lower", "upper", "cost")
+  colnames(res) <- c("lower", "upper", "size", "cost")
 
   res
 }

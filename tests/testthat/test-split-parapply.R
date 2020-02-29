@@ -70,3 +70,20 @@ test_that("equality with other functions", {
 
 ################################################################################
 
+test_that("parameter '.costs' work", {
+
+  options(bigstatsr.check.parallel.blas = FALSE)
+
+  costs <- runif(ncol(x))
+  # get the means of each column (not combined)
+  colmeans_split <- split_parapply(
+    FUN = function(X, ind) colMeans(X[, ind, drop = FALSE]),
+    ind = cols_along(x),
+    X = x,
+    ncores = 2,
+    .costs = costs
+  )
+  expect_equal(lengths(colmeans_split), split_costs(costs, 2)[, "size"])
+})
+
+################################################################################

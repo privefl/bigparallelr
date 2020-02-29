@@ -11,7 +11,8 @@ split_parapply(
   .combine = NULL,
   ncores = nb_cores(),
   nb_split = ncores,
-  opts_cluster = list()
+  opts_cluster = list(),
+  .costs = NULL
 )
 }
 \arguments{
@@ -34,7 +35,10 @@ being the result of a block.}
 
 \item{opts_cluster}{Optional parameters for clusters passed as a named list.
 E.g., you can use \code{type = "FORK"} to use forks instead of clusters.
-You can also use \code{outfile = ""} to redirect printing to the console.#'}
+You can also use \code{outfile = ""} to redirect printing to the console.}
+
+\item{.costs}{Vector of costs (e.g. proportional to computation time)
+associated with each element of \code{ind}. Default is \code{NULL} (same cost).}
 }
 \value{
 Return a list of \code{ncores} elements, each element being the result of

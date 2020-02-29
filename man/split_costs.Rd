@@ -12,7 +12,7 @@ split_costs(costs, nb_split)
 \item{nb_split}{Number of blocks.}
 }
 \value{
-A matrix with 3 columns \code{lower}, \code{upper} and \code{cost}.
+A matrix with 4 columns \code{lower}, \code{upper}, \code{size} and \code{cost}.
 }
 \description{
 Split costs in consecutive blocks using a greedy algorithm that tries to

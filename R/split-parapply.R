@@ -24,7 +24,9 @@ utils::globalVariables("ic")
 #' @param nb_split Number of blocks. Default uses `ncores`.
 #' @param opts_cluster Optional parameters for clusters passed as a named list.
 #'   E.g., you can use `type = "FORK"` to use forks instead of clusters.
-#'   You can also use `outfile = ""` to redirect printing to the console.#'
+#'   You can also use `outfile = ""` to redirect printing to the console.
+#' @param .costs Vector of costs (e.g. proportional to computation time)
+#'   associated with each element of `ind`. Default is `NULL` (same cost).
 #'
 #' @return Return a list of `ncores` elements, each element being the result of
 #'   one of the cores, computed on a block. The elements of this list are then
@@ -47,14 +49,20 @@ split_parapply <- function(FUN, ind, ...,
                            .combine = NULL,
                            ncores = nb_cores(),
                            nb_split = ncores,
-                           opts_cluster = list()) {
+                           opts_cluster = list(),
+                           .costs = NULL) {
 
   assert_args(FUN, "ind")
   assert_cores(ncores)
 
   do.call(register_parallel, args = c(list(ncores = ncores), opts_cluster))
 
-  intervals <- split_len(length(ind), nb_split = nb_split)
+  if (is.null(.costs)) {
+    intervals <- split_len(length(ind), nb_split = nb_split)
+  } else {
+    assert_lengths(ind, .costs)
+    intervals <- split_costs(.costs, nb_split = nb_split)
+  }
 
   res <- foreach(ic = rows_along(intervals)) %dopar% {
     ind.part <- ind[seq(intervals[ic, "lower"], intervals[ic, "upper"])]

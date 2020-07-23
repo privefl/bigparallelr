@@ -85,7 +85,7 @@ assert_cores <- function(ncores) {
   if (ncores > 1 && getOption("bigstatsr.check.parallel.blas")) {
     if (is.null(getOption("default.nproc.blas")))
       options(default.nproc.blas = default_nproc_blas())
-    if (getOption("default.nproc.blas") > 1)
+    else if (getOption("default.nproc.blas") > 1)
       stop2("Two levels of parallelism are used. See `?assert_cores`.")
   }
 }

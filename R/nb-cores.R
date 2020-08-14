@@ -55,14 +55,14 @@ set_blas_ncores <- function(ncores) {
 #'
 #' We instead recommend that you disable parallel BLAS by default by adding
 #' `try(bigparallelr::set_blas_ncores(1), silent = TRUE)` to your .Rprofile
-#' so that this is set whenever you open a new R session
-#' (you can open this file using `usethis::edit_r_profile()`).
-#' For the current running session, you should restart it or use
-#' `options(default.nproc.blas = NULL)`.
+#' (**with an empty line at the end of this file**) so that this is set whenever
+#' you start a new R session. You can use `usethis::edit_r_profile()` to open
+#' your .Rprofile. For this to be effective, you should restart the R session or
+#' run `options(default.nproc.blas = NULL)` once in the current session.
 #'
-#' Then, in a specific R session, you can set a different
-#' number of cores to use for matrix computations, if you know that there is no
-#' other level of parallelism involved in your code.
+#' Then, in a specific R session, you can set a different number of cores to use
+#' for matrix computations using `bigparallelr::set_blas_ncores()`, if you know
+#' there is no other level of parallelism involved in your code.
 #'
 #' @param ncores Number of cores to check. Make sure is not larger than
 #'   `getOption("bigstatsr.ncores.max")` (number of logical cores by default).

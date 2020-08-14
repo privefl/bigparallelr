@@ -19,6 +19,6 @@ below to see their documentation.
 
   \item{flock}{\code{\link[flock]{lock}}, \code{\link[flock]{unlock}}}
 
-  \item{parallel}{\code{\link[parallel]{makeCluster}}, \code{\link[parallel]{stopCluster}}}
+  \item{parallel}{\code{\link[parallel]{makeCluster}}, \code{\link[parallel:makeCluster]{stopCluster}}}
 }}
 

@@ -23,14 +23,14 @@ You could remove this check by setting
 
 We instead recommend that you disable parallel BLAS by default by adding
 \code{try(bigparallelr::set_blas_ncores(1), silent = TRUE)} to your .Rprofile
-so that this is set whenever you open a new R session
-(you can open this file using \code{usethis::edit_r_profile()}).
-For the current running session, you should restart it or use
-\code{options(default.nproc.blas = NULL)}.
+(\strong{with an empty line at the end of this file}) so that this is set whenever
+you start a new R session. You can use \code{usethis::edit_r_profile()} to open
+your .Rprofile. For this to be effective, you should restart the R session or
+run \code{options(default.nproc.blas = NULL)} once in the current session.
 
-Then, in a specific R session, you can set a different
-number of cores to use for matrix computations, if you know that there is no
-other level of parallelism involved in your code.
+Then, in a specific R session, you can set a different number of cores to use
+for matrix computations using \code{bigparallelr::set_blas_ncores()}, if you know
+there is no other level of parallelism involved in your code.
 }
 \examples{
 \dontrun{

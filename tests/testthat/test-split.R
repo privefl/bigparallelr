@@ -17,6 +17,7 @@ test_that("Sequence generation works", {
 ################################################################################
 
 test_that("split_len() works", {
+
   expect_error(split_len(0, nb_split = 2),
                "'total_len' should have only positive values.")
   expect_equal(split_len(10, block_len = 3),
@@ -34,6 +35,19 @@ test_that("split_len() works", {
   expect_equal(split_len(10, nb_split = 11), split_len(10, block_len = 1))
   expect_equal(split_len(10, nb_split = 1), split_len(10, block_len = 10))
   expect_equal(split_len(10, nb_split = 0), split_len(10, block_len = 10))
+})
+
+################################################################################
+
+test_that("split_vec() and split_df() work", {
+
+  expect_equal(split_vec(1:10, block_len = 3), list(1:2, 3:5, 6:8, 9:10))
+  expect_equal(split_vec(1:10, block_len = Inf), list(1:10))
+  expect_equal(split_vec(1:10, nb_split = Inf), as.list(1:10))
+
+  expect_error(split_df(iris[0, ], nb_split = 2),
+               "'total_len' should have only positive values.")
+  expect_equal(split_df(iris, nb_split = 3), unname(split(iris, iris$Species)))
 })
 
 ################################################################################

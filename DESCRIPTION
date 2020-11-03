@@ -1,6 +1,6 @@
 Package: bigparallelr
 Title: Easy Parallel Tools
-Version: 0.2.5
+Version: 0.3.0
 Authors@R: 
     person(given = "Florian",
            family = "Privé",

@@ -71,6 +71,38 @@ split_len <- function(total_len, block_len,
 
 ################################################################################
 
+#' Split object in blocks
+#'
+#' @param x Vector to be divided into groups.
+#' @param df Data frame to be divided into groups.
+#' @param block_len Maximum length (or number of rows) of each block.
+#' @param nb_split Number of blocks. Default uses the other 2 parameters.
+#'
+#' @return A list with the splitted objects.
+#' @export
+#'
+#' @examples
+#' split_vec(1:10, block_len = 3)
+#' str(split_df(iris, nb_split = 3))
+#'
+split_vec <- function(x, block_len, nb_split = ceiling(length(x) / block_len)) {
+
+  size <- split_len(length(x), nb_split = nb_split)[, "size"]
+  f <- rep(seq_along(size), size)
+  unname(split(x, f))
+}
+
+#' @rdname split_vec
+#' @export
+split_df <- function(df, block_len, nb_split = ceiling(nrow(df) / block_len)) {
+
+  size <- split_len(nrow(df), nb_split = nb_split)[, "size"]
+  f <- rep(seq_along(size), size)
+  unname(split(df, f))
+}
+
+################################################################################
+
 get_one_block <- function(costs, nb_split) {
 
   n <- length(costs)

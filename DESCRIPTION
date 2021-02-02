@@ -1,6 +1,6 @@
 Package: bigparallelr
 Title: Easy Parallel Tools
-Version: 0.3.0
+Version: 0.3.1
 Authors@R: 
     person(given = "Florian",
            family = "Privé",
@@ -19,6 +19,7 @@ Imports:
     doParallel,
     flock,
     parallel,
+    parallelly,
     RhpcBLASctl
 Depends: 
     foreach

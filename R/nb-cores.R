@@ -104,16 +104,8 @@ assert_cores <- function(ncores) {
 #' nb_cores()
 nb_cores <- function() {
 
-  if (Sys.info()[["sysname"]] == "Windows") {
-    ncores <- parallel::detectCores(logical = FALSE)
-  } else {
-    # https://stackoverflow.com/a/23378780/6103040
-    cmd <- "[ $(uname) = 'Darwin' ] && sysctl -n hw.physicalcpu_max ||
-            lscpu -p | egrep -v '^#' | sort -u -t, -k 2,4 | wc -l"
-    ncores <- as.integer(system(cmd, intern = TRUE))
-  }
-
-  all_cores <- parallel::detectCores(logical = TRUE)
+  ncores    <- parallelly::availableCores(logical = FALSE)
+  all_cores <- parallelly::availableCores(logical = TRUE)
 
   `if`(ncores < all_cores, ncores, all_cores - 1L)
 }

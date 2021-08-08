@@ -30,7 +30,10 @@ register_parallel <- function(ncores, ...) {
   if (identical(parent.frame(), globalenv()))
     stop2("This function must be used inside another function.")
 
-  if (ncores == 1) {
+  if (foreach::getDoParWorkers() > 1) {
+    # User has already registered a parallel backend in their R session, so we can just use that
+    # instead of setting up our own for the callee function
+  } else if (ncores == 1) {
     foreach::registerDoSEQ()
   } else {
     cl <- parallel::makeCluster(ncores, ...)

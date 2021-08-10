@@ -41,6 +41,9 @@ register_parallel <- function(ncores, ...) {
     # https://stackoverflow.com/a/20998531/6103040
     do.call("on.exit", list(substitute(parallel::stopCluster(cl)), add = TRUE),
             envir = parent.frame())
+    # https://stackoverflow.com/questions/25097729/un-register-a-doparallel-cluster
+    do.call("on.exit", list(substitute(foreach::registerDoSeq()), add = TRUE),
+            envir = parent.frame())
   }
 
   invisible(NULL)

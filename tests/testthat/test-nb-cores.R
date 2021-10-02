@@ -12,7 +12,9 @@ test_that("assert_cores() works", {
 
   options(bigstatsr.ncores.max = 1)
   expect_null(assert_cores(1))
-  expect_error(assert_cores(2), "You are trying to use more cores than allowed.")
+  expect_error(assert_cores(2),   "You are trying to use more cores than allowed.")
+  expect_error(assert_cores(2.5), "'ncores' should be an integer.")
+  expect_error(assert_cores(0),   "'ncores' should be at least 1.")
 
   options(bigstatsr.ncores.max = Inf, bigstatsr.check.parallel.blas = TRUE)
   expect_null(assert_cores(1))

@@ -79,6 +79,10 @@ set_blas_ncores <- function(ncores) {
 #'
 assert_cores <- function(ncores) {
 
+  bigassertr::assert_one_int(ncores)
+  if (ncores < 1)
+    stop2("'ncores' should be at least 1.")
+
   if (ncores > getOption("bigstatsr.ncores.max"))
     stop2("You are trying to use more cores than allowed. See `?assert_cores`.")
 
@@ -107,7 +111,7 @@ nb_cores <- function() {
   ncores    <- parallelly::availableCores(logical = FALSE)
   all_cores <- parallelly::availableCores(logical = TRUE)
 
-  `if`(ncores < all_cores, ncores, all_cores - 1L)
+  max(1L, `if`(ncores < all_cores, ncores, all_cores - 1L))
 }
 
 ################################################################################

@@ -2,7 +2,6 @@
 
 context("test-split")
 
-################################################################################
 
 test_that("Sequence generation works", {
 
@@ -14,7 +13,6 @@ test_that("Sequence generation works", {
   expect_identical(seq_range(c(3, 10)), 3:10)
 })
 
-################################################################################
 
 test_that("split_len() works", {
 
@@ -37,7 +35,6 @@ test_that("split_len() works", {
   expect_equal(split_len(10, nb_split = 0), split_len(10, block_len = 10))
 })
 
-################################################################################
 
 test_that("split_vec() and split_df() work", {
 
@@ -50,7 +47,6 @@ test_that("split_vec() and split_df() work", {
   expect_equal(split_df(iris, nb_split = 3), unname(split(iris, iris$Species)))
 })
 
-################################################################################
 
 test_that("split_costs() works", {
 
@@ -72,5 +68,3 @@ test_that("split_costs() works", {
     expect_equal(unlist(intervals_seq), 1:N)
   })
 })
-
-################################################################################

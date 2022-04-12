@@ -6,9 +6,7 @@
 \alias{bigparallelr-package}
 \title{bigparallelr: Easy Parallel Tools}
 \description{
-Utility functions for easy parallelism in R. Include some reexports
-    from other packages, utility functions for splitting and parallelizing over
-    blocks, and choosing and setting the number of cores used.
+Utility functions for easy parallelism in R. Include some reexports from other packages, utility functions for splitting and parallelizing over blocks, and choosing and setting the number of cores used.
 }
 \seealso{
 Useful links:

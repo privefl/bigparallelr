@@ -4,16 +4,7 @@
 \alias{split_parapply}
 \title{Split-parApply-Combine}
 \usage{
-split_parapply(
-  FUN,
-  ind,
-  ...,
-  .combine = NULL,
-  ncores = nb_cores(),
-  nb_split = ncores,
-  opts_cluster = list(),
-  .costs = NULL
-)
+split_parapply(FUN, ind, ..., .combine = NULL, nb_split = 1, .costs = NULL)
 }
 \arguments{
 \item{FUN}{The function to be applied to each subset matrix.}
@@ -29,19 +20,13 @@ you can use \code{c}, \code{cbind} and \code{rbind}. This package also provides 
 case the results are not combined and are returned as a list, each element
 being the result of a block.}
 
-\item{ncores}{Number of cores to use. Default uses \code{nb_cores()}.}
-
-\item{nb_split}{Number of blocks. Default uses \code{ncores}.}
-
-\item{opts_cluster}{Optional parameters for clusters passed as a named list.
-E.g., you can use \code{type = "FORK"} to use forks instead of clusters.
-You can also use \code{outfile = ""} to redirect printing to the console.}
+\item{nb_split}{Number of blocks. Default uses \code{1}.}
 
 \item{.costs}{Vector of costs (e.g. proportional to computation time)
 associated with each element of \code{ind}. Default is \code{NULL} (same cost).}
 }
 \value{
-Return a list of \code{ncores} elements, each element being the result of
+Return a list of \code{nb_split} elements, each element being the result of
 one of the cores, computed on a block. The elements of this list are then
 combined with \code{do.call(.combine, .)} if \code{.combined} is not \code{NULL}.
 }
@@ -53,12 +38,12 @@ This function splits indices in parts, then apply a given function to each
 part and finally combine the results.
 }
 \examples{
-\dontrun{
+if (interactive()) {
 
 str(
   split_parapply(function(ind) {
     sqrt(ind)
-  }, ind = 1:10000, ncores = 2)
+  }, ind = 1:10000, nb_split = 2)
 )
 }
 

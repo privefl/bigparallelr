@@ -1,5 +1,3 @@
-################################################################################
-
 #' Sequence generation
 #'
 #' - `rows_along(x)`: `seq_len(nrow(x))`
@@ -26,7 +24,6 @@ rows_along <- function(x) seq_len(nrow(x))
 #' @export
 cols_along <- function(x) seq_len(ncol(x))
 
-################################################################################
 
 #' @rdname seq-dim
 #' @export
@@ -34,7 +31,6 @@ seq_range <- function(lims) {
   seq(lims[1], lims[2])
 }
 
-################################################################################
 
 #' Split length in blocks
 #'
@@ -49,17 +45,18 @@ seq_range <- function(lims) {
 #' split_len(10, block_len = 3)
 #' split_len(10, nb_split = 3)
 #'
-split_len <- function(total_len, block_len,
-                      nb_split = ceiling(total_len / block_len)) {
-
-  assert_one_int(total_len); assert_pos(total_len)
+split_len <- function(total_len, block_len, nb_split = ceiling(total_len / block_len)) {
+  bigassertr::assert_one_int(total_len)
+  bigassertr::assert_pos(total_len)
 
   if (nb_split > total_len) {
     nb_split <- total_len
   } else if (nb_split == 0) {  ## block_len = Inf
     nb_split <- 1
   }
-  assert_one_int(nb_split); assert_pos(nb_split)
+
+  bigassertr::assert_one_int(nb_split)
+  bigassertr::assert_pos(nb_split)
 
   int <- total_len / nb_split
   upper <- round(1:nb_split * int)
@@ -69,7 +66,6 @@ split_len <- function(total_len, block_len,
   cbind(lower, upper, size)
 }
 
-################################################################################
 
 #' Split object in blocks
 #'
@@ -86,7 +82,6 @@ split_len <- function(total_len, block_len,
 #' str(split_df(iris, nb_split = 3))
 #'
 split_vec <- function(x, block_len, nb_split = ceiling(length(x) / block_len)) {
-
   size <- split_len(length(x), nb_split = nb_split)[, "size"]
   f <- rep(seq_along(size), size)
   unname(split(x, f))
@@ -95,23 +90,22 @@ split_vec <- function(x, block_len, nb_split = ceiling(length(x) / block_len)) {
 #' @rdname split_vec
 #' @export
 split_df <- function(df, block_len, nb_split = ceiling(nrow(df) / block_len)) {
-
   size <- split_len(nrow(df), nb_split = nb_split)[, "size"]
   f <- rep(seq_along(size), size)
   unname(split(df, f))
 }
 
-################################################################################
-
+#' @keywords internal
 get_one_block <- function(costs, nb_split) {
-
   n <- length(costs)
 
-  if (nb_split == 1)
+  if (nb_split == 1) {
     return(list(block = cbind(1, n, n, sum(costs)), costs = NULL))
+  }
 
-  if (nb_split >= n)
+  if (nb_split >= n) {
     return(list(block = cbind(seq_len(n), seq_len(n), 1, costs), costs = NULL))
+  }
 
   mean_cost_grp <- sum(costs) / nb_split
   cur_cost <- 0
@@ -121,16 +115,13 @@ get_one_block <- function(costs, nb_split) {
     if (new_cost > mean_cost_grp) {
       if (i == n) {
         # Already pass mean_cost_grp with only one
-        return(list(block = cbind(n, n, 1, new_cost),
-                    costs = head(costs, i - 1L)))
+        return(list(block = cbind(n, n, 1, new_cost), costs = head(costs, i - 1L)))
       } else if ((mean_cost_grp - cur_cost) > (new_cost - mean_cost_grp)) {
         # Better to add this one
-        return(list(block = cbind(i, n, n - i + 1, new_cost),
-                    costs = head(costs, i - 1L)))
+        return(list(block = cbind(i, n, n - i + 1, new_cost), costs = head(costs, i - 1L)))
       } else {
         # Not better to add this one
-        return(list(block = cbind(i + 1L, n, n - i, cur_cost),
-                    costs = head(costs, i)))
+        return(list(block = cbind(i + 1L, n, n - i, cur_cost), costs = head(costs, i)))
       }
     } else {
       # Continue
@@ -158,10 +149,9 @@ get_one_block <- function(costs, nb_split) {
 #' split_costs(costs = 150:1, nb_split = 30)
 #'
 split_costs <- function(costs, nb_split) {
-
-  assert_one_int(nb_split)
-  assert_pos(nb_split, strict = TRUE)
-  assert_pos(costs, strict = FALSE)
+  bigassertr::assert_one_int(nb_split)
+  bigassertr::assert_pos(nb_split, strict = TRUE)
+  bigassertr::assert_pos(costs, strict = FALSE)
 
   all_blocks <- list()
   while (!is.null(costs)) {
@@ -176,5 +166,3 @@ split_costs <- function(costs, nb_split) {
 
   res
 }
-
-################################################################################

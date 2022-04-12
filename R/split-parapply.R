@@ -1,9 +1,3 @@
-################################################################################
-
-utils::globalVariables("ic")
-
-################################################################################
-
 #' Split-parApply-Combine
 #'
 #' A Split-Apply-Combine strategy to parallelize the evaluation of a function.
@@ -20,51 +14,48 @@ utils::globalVariables("ic")
 #'   `plus` to add multiple arguments together. The default is `NULL`, in which
 #'   case the results are not combined and are returned as a list, each element
 #'   being the result of a block.
-#' @param ncores Number of cores to use. Default uses `nb_cores()`.
-#' @param nb_split Number of blocks. Default uses `ncores`.
-#' @param opts_cluster Optional parameters for clusters passed as a named list.
-#'   E.g., you can use `type = "FORK"` to use forks instead of clusters.
-#'   You can also use `outfile = ""` to redirect printing to the console.
+#' @param nb_split Number of blocks. Default uses `1`.
 #' @param .costs Vector of costs (e.g. proportional to computation time)
 #'   associated with each element of `ind`. Default is `NULL` (same cost).
 #'
-#' @return Return a list of `ncores` elements, each element being the result of
+#' @return Return a list of `nb_split` elements, each element being the result of
 #'   one of the cores, computed on a block. The elements of this list are then
 #'   combined with `do.call(.combine, .)` if `.combined` is not `NULL`.
 #' @export
 #'
-#' @importFrom bigassertr assert_args
+#' @import foreach
 #'
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
+#'   sys.time(str(
+#'     split_parapply(function(ind) {
+#'       sqrt(ind)
+#'     }, ind = 1:10000, nb_split = 2)
+#'   ))
 #'
-#' str(
-#'   split_parapply(function(ind) {
-#'     sqrt(ind)
-#'   }, ind = 1:10000, ncores = 2)
-#' )
+#'   # Using parallel
+#'   library("doFuture")
+#'   registerDoFuture()
+#'   plan(multisession, workers = 2)
+#'   system.time(str(
+#'     split_parapply(function(ind) {
+#'       sqrt(ind)
+#'     }, ind = 1:10000, nb_split = 2)
+#'   ))
 #' }
 #'
-split_parapply <- function(FUN, ind, ...,
-                           .combine = NULL,
-                           ncores = nb_cores(),
-                           nb_split = ncores,
-                           opts_cluster = list(),
-                           .costs = NULL) {
-
-  assert_args(FUN, "ind")
-  assert_cores(ncores)
-
-  do.call(register_parallel, args = c(list(ncores = ncores), opts_cluster))
+split_parapply <- function(FUN, ind, ..., .combine = NULL, nb_split = 1, .costs = NULL) {
+  ic <- NULL # "no visible global variable"
+  bigassertr::assert_args(FUN, "ind")
 
   if (is.null(.costs)) {
     intervals <- split_len(length(ind), nb_split = nb_split)
   } else {
-    assert_lengths(ind, .costs)
+    bigassertr::assert_lengths(ind, .costs)
     intervals <- split_costs(.costs, nb_split = nb_split)
   }
 
-  res <- foreach(ic = rows_along(intervals)) %dopar% {
+  res <- foreach::foreach(ic = rows_along(intervals)) %dopar% {
     ind.part <- ind[seq(intervals[ic, "lower"], intervals[ic, "upper"])]
     FUN(ind = ind.part, ...)
   }
@@ -72,7 +63,6 @@ split_parapply <- function(FUN, ind, ...,
   `if`(is.null(.combine), res, do.call(.combine, res))
 }
 
-################################################################################
 
 #' Add
 #'
@@ -88,5 +78,3 @@ split_parapply <- function(FUN, ind, ...,
 plus <- function(...) {
   Reduce('+', list(...))
 }
-
-################################################################################

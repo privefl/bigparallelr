@@ -2,18 +2,14 @@
 
 context("test-split-parapply")
 
-################################################################################
 
 # Simulating some data
 N <- 73
 M <- 4300
 x <- matrix(rnorm(N * M, mean = 100, sd = 5), N)
 
-################################################################################
 
 test_that("equality with other functions", {
-
-  options(bigstatsr.check.parallel.blas = FALSE)
 
   # get the means of each column (not combined)
   colmeans_split <- split_parapply(
@@ -21,7 +17,7 @@ test_that("equality with other functions", {
     ind = cols_along(x),
     X = x,
     # .combine = "c",
-    ncores = 2
+    nb_split = 2
   )
   expect_length(colmeans_split, 2)
   expect_equal(unlist(colmeans_split), colMeans(x))
@@ -32,7 +28,7 @@ test_that("equality with other functions", {
     ind = cols_along(x),
     X = x,
     .combine = "c",
-    ncores = 2
+    nb_split = 2
   )
   expect_equal(colmeans, colMeans(x))
 
@@ -42,7 +38,7 @@ test_that("equality with other functions", {
     ind = cols_along(x),
     X = x,
     .combine = "c",
-    ncores = 2
+    nb_split = 2
   )
   expect_equal(colnorms, sqrt(colSums(x^2)))
 
@@ -52,7 +48,7 @@ test_that("equality with other functions", {
     ind = cols_along(x),
     X = x,
     .combine = "plus",
-    ncores = 2
+    nb_split = 2
   )
   expect_equal(rowsums, rowSums(x))
 
@@ -62,17 +58,14 @@ test_that("equality with other functions", {
     ind = cols_along(x),
     X = x,
     .combine = "c",
-    ncores = 2
+    nb_split = 2
   ))
   expect_equal(maxabs, max(abs(x)))
 
 })
 
-################################################################################
 
 test_that("parameter '.costs' work", {
-
-  options(bigstatsr.check.parallel.blas = FALSE)
 
   costs <- runif(ncol(x))
   # get the means of each column (not combined)
@@ -80,10 +73,8 @@ test_that("parameter '.costs' work", {
     FUN = function(X, ind) colMeans(X[, ind, drop = FALSE]),
     ind = cols_along(x),
     X = x,
-    ncores = 2,
+    nb_split = 2,
     .costs = costs
   )
   expect_equal(lengths(colmeans_split), split_costs(costs, 2)[, "size"])
 })
-
-################################################################################

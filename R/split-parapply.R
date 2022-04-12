@@ -27,7 +27,7 @@
 #'
 #' @examples
 #' if (interactive()) {
-#'   sys.time(str(
+#'   system.time(str(
 #'     split_parapply(function(ind) {
 #'       sqrt(ind)
 #'     }, ind = 1:10000, nb_split = 2)

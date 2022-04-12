@@ -39,12 +39,21 @@ part and finally combine the results.
 }
 \examples{
 if (interactive()) {
+  system.time(str(
+    split_parapply(function(ind) {
+      sqrt(ind)
+    }, ind = 1:10000, nb_split = 2)
+  ))
 
-str(
-  split_parapply(function(ind) {
-    sqrt(ind)
-  }, ind = 1:10000, nb_split = 2)
-)
+  # Using parallel
+  library("doFuture")
+  registerDoFuture()
+  plan(multisession, workers = 2)
+  system.time(str(
+    split_parapply(function(ind) {
+      sqrt(ind)
+    }, ind = 1:10000, nb_split = 2)
+  ))
 }
 
 }

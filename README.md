@@ -1,7 +1,7 @@
 <!-- badges: start -->
-[![R build status](https://github.com/privefl/bigparallelr/workflows/R-CMD-check/badge.svg)](https://github.com/privefl/bigparallelr)
-[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/privefl/bigparallelr?branch=master&svg=true)](https://ci.appveyor.com/project/privefl/bigparallelr)
-[![Coverage status](https://codecov.io/gh/privefl/bigparallelr/branch/master/graph/badge.svg)](https://codecov.io/github/privefl/bigparallelr?branch=master)
+[![R-CMD-check](https://github.com/privefl/bigparallelr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/privefl/bigparallelr/actions/workflows/R-CMD-check.yaml)
+[![Codecov test coverage](https://codecov.io/gh/privefl/bigparallelr/branch/master/graph/badge.svg)](https://app.codecov.io/gh/privefl/bigparallelr?branch=master)
+[![CRAN status](https://www.r-pkg.org/badges/version/bigparallelr)](https://CRAN.R-project.org/package=bigparallelr)
 <!-- badges: end -->
 
 # bigparallelr
